@@ -5,7 +5,7 @@ permissions: read-all
 jobs:
   preliminary:
     name: preliminary sanity checks
-    runs-on: testing
+    runs-on: buildjet-4vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # tag=v4
         with:
@@ -51,7 +51,7 @@ jobs:
           echo ""
           exit -1
   run-tests:
-    runs-on: testing
+    runs-on: buildjet-4vcpu-ubuntu-2204
     strategy:
       fail-fast: false
       matrix:
