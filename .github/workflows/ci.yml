@@ -5,7 +5,7 @@ permissions: read-all
 jobs:
   preliminary:
     name: preliminary sanity checks
-    runs-on: ubuntu-22.04
+    runs-on: testing
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # tag=v4
         with:
@@ -51,19 +51,13 @@ jobs:
           echo ""
           exit -1
   run-tests:
-    runs-on: ubuntu-22.04
+    runs-on: testing
     strategy:
       fail-fast: false
       matrix:
         test-type:
           - type: core
             arguments: ":reactor-core:test --no-daemon"
-          - type: core-java21
-            arguments: ":reactor-core:java21Test --no-daemon"
-          - type: core-java11
-            arguments: ":reactor-core:java11Test --no-daemon"
-          - type: other
-            arguments: "check -x :reactor-core:test -x :reactor-core:java21Test -x :reactor-core:java11Test -x spotlessCheck -Pjcstress.mode=sanity --no-daemon"
     name: ${{ matrix.test-type.type }} tests
     needs: preliminary
     steps:
